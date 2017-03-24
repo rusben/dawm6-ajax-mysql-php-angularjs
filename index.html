@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html ng-app="videoclubApp" xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>First steps with angular</title>
+  <link rel="shortcut icon" HREF="images/logo.jpg"/>
+
+  <!-- css-->
+  <link rel="stylesheet" type="text/css" href="vendors/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <!-- jQuery-->
+  <script src="vendors/jquery/js/jQuery.js" type="text/javascript" xml:space="preserve"></script>
+
+  <!-- jQuery Cookies management-->
+  <script src="vendors/jquery/jquery-cookie/jquery.cookie.js" type="text/javascript" xml:space="preserve"></script>
+
+  <!-- Angular-->
+  <script src="vendors/angular/js/angular.min.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/angular-file-upload.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/angular-i18n/angular-locale_es-es.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/ng-currency.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/angular-cookies.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/dirPagination.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/bootstrap/js/ui-bootstrap-tpls-2.3.1.js" type="text/javascript" xml:space="preserve"></script>
+
+  <!-- Own code-->
+  <!-- Model-->
+  <script src="js/model/User.js" type="text/javascript" xml:space="preserve"></script>
+  <!-- Controllers-->
+  <script src="js/app.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="js/controller/SessionController.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="js/controller/UserController.js" type="text/javascript" xml:space="preserve"></script>
+</head>
+<body class="container" ng-controller="SessionController as sessionCtrl" ng-init="sessionCtrl.sessionControl()">
+  <div class="imageDiv">
+    <img src="images/logo.jpg" id='logo' width="300" height="240" /></br>
+  </div>
+  <div class="container well" id="login" ng-controller="UserController as userCtrl">
+    <fieldset ng-show="userOption==0">
+      <legend>Login</legend>
+      <form class="login" name="userConnection" ng-submit="userCtrl.connection()" novalidate>
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="user.nick"  placeholder="User" required />
+          <input type="password" class="form-control" ng-model="user.password" placeholder="Password" required />
+        </div>
+
+        <div class="form-group col-sm-6">
+          <label>
+            <input class="btn btn-success btn-default btn-primary btn-block" type="submit"  ng-disabled="userConnection.$invalid" value="Login" />
+          </label>
+        </div>
+
+        <div class="form-group col-sm-6">
+          <label>
+            <input class="btn btn-default btn-primary btn-block" type="button" value="Register" ng-click="userOption=1">
+          </label>
+        </div>
+      </form>
+    </fieldset>
+    <div ng-show="userOption==1">
+      <user-data-management></user-data-management>
+    </div>
+  </div>
+  <br/><br/><br/>
+  <div id="foot">
+    <button class="btn btn-primary pull-left" onclick="location.reload()">Reload</button>
+    <strong>Videoclub Star Wars</strong>
+  </div>
+</body>
+</html>

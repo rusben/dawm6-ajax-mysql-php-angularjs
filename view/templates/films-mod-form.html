@@ -1,0 +1,71 @@
+<div>
+	<table class="table table-bordered" ng-disabled="modFilmsForm.$invalid">
+		<tr><th>Film Type</th><th>Director</th><th>Name</th><th>Films per page</th></tr>
+		<tr>
+			<td>
+				<select id="filmTypeSearch" ng-model="filmTypeSearch">
+					<option value="">None</option>
+					<option ng-repeat="filmType in filmTypesArray" value="{{filmType.getId()}}">{{filmType.getName()}}</option>
+				</select>
+			</td>
+			<td>
+				<select id="directorSearch" ng-model="directorSearch">
+					<option value="">None</option>
+					<option ng-repeat="director in directorsArray" value="{{director.getId()}}">{{director.getName()+' '+director.getSurname1()+' '+director.getSurname2()}}</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" ng-model="nameSearch"/>
+			</td>
+			<td>
+				<input type="number" min="1" max="100" class="form-control" ng-model="pageSize"/>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<form name="modFilmsForm" ng-submit="modFilmsForm.$valid && filmCtrl.modFilms()" novalidate>
+	<h1>Films found:</h1>
+	<table class="table table-bordered">
+		<tr><th>Film Type</th><th>Director</th><th>Name</th><th>Price</th><th>In Sale</th><th>Rented</th><th>Image</th></tr>
+		<tr dir-paginate="film in filteredData | itemsPerPage: pageSize" current-page="currentPage">
+			<td>
+				<select id="filmType{{$index}}" ng-model="film.idFilmType" required>
+					<option ng-repeat="filmType in filmTypesArray" value="{{filmType.getId()}}">{{filmType.getName()}}</option>
+				</select>
+			</td>
+			<td>
+				<select id="director{{$index}}" ng-model="film.idDirector" required>
+					<option ng-repeat="director in directorsArray" value="{{director.getId()}}">{{director.getName()+' '+director.getSurname1()+' '+director.getSurname2()}}</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" id="name{{$index}}" ng-model="film.name" required />
+			</td>
+			<td>
+				<input type="text" id="price{{$index}}" ng-model="film.price" ng-currency required />
+			</td>
+			<td>
+				<input type="checkbox" id="inSale{{$index}}" ng-model="film.inSale" />
+			</td>
+			<td>
+				<input type="checkbox" id="rented{{$index}}" ng-model="film.rented" />
+			</td>
+			<td>
+				<label class="col-sm-2 control-label" for="formGroup">Image: <img src="{{film.getImage()}}" width="50" height="50"/></label>
+				<input type="file" id="image{{$index}}" ng-model="images[$index]" />
+			</td>
+		</tr>
+	</table>
+	<div ng-show="modFilmsForm.$valid">
+		<div class="text-left" boundary-links="true">
+			<dir-pagination-controls boundary-links="true" template-url="view/templates/dir-pagination-controls.html"></dir-pagination-controls>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-success" ng-disabled="modFilmsForm.$invalid" >
+		Modify films
+	</button>
+	<button type="button" class="btn btn-info" ng-click="shomForm=0" >
+		Back
+	</button>
+</form>

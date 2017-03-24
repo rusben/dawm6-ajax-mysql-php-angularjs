@@ -1,0 +1,47 @@
+<form name="entryFilmsForm" ng-submit="entryFilmsForm.$valid && filmCtrl.entryFilm()" novalidate>
+	<h1>Products in your shopping cart:</h1>
+	<table class="table table-bordered">
+		<tr><th>Film Type</th><th>Director</th><th>Name</th><th>Price</th><th>In Sale</th><th>Image</th><th>Remove</th></tr>
+		<tr ng-repeat="film in filmsArray">
+			<td>
+				<select id="filmType{{$index}}" ng-model="film.idFilmType" required>
+					<option ng-repeat="filmType in filmTypesArray" value="{{filmType.getId()}}">{{filmType.getName()}}</option>
+				</select>
+			</td>
+			<td>
+				<select id="director{{$index}}" ng-model="film.idDirector" required>
+					<option ng-repeat="director in directorsArray" value="{{director.getId()}}">{{director.getName()+' '+director.getSurname1()+' '+director.getSurname2()}}</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" id="name{{$index}}" ng-model="film.name" required />
+			</td>
+			<td>
+				<input type="text" id="price{{$index}}" ng-model="film.price" ng-currency required />
+			</td>
+			<td>
+				<input type="checkbox" id="inSale{{$index}}" ng-model="film.inSale" />
+			</td>
+			<td>
+				<input type="file" id="filmImageEntry{{$index}}" ng-model="image" valid-file />
+			</td>
+			<td>
+				<button type="button" class="btn btn-danger" ng-click="filmCtrl.removeFilm($index)">
+							X
+				</button>
+			</td>
+		</tr>
+	</table>
+	<button type="button" class="btn btn-primary" ng-click="filmCtrl.addFilm()">
+			Add
+	</button>
+	<button type="button" class="btn btn-warning" ng-click="filmCtrl.unDoFilm()">
+			Undo
+	</button>
+	<button type="submit" class="btn btn-success" ng-disabled="entryFilmsForm.$invalid" >
+			Entry films
+	</button>
+	<button type="button" class="btn btn-info" ng-click="shomForm=0" >
+			Back
+	</button>
+</form>

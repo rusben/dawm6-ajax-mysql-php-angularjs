@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html ng-app="videoclubApp" xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Videoclub Management</title>
+  <link rel="shortcut icon" HREF="images/logo.jpg"/>
+
+  <!-- css-->
+  <link rel="stylesheet" type="text/css" href="vendors/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <!-- jQuery-->
+  <script src="vendors/jquery/js/jQuery.js" type="text/javascript" xml:space="preserve"></script>
+
+  <!-- jQuery Cookies management-->
+  <script src="vendors/jquery/jquery-cookie/jquery.cookie.js" type="text/javascript" xml:space="preserve"></script>
+
+  <!-- Angular-->
+  <script src="vendors/angular/js/angular.min.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/angular-file-upload.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/angular-i18n/angular-locale_es-es.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/ng-currency.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/angular-cookies.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/angular/js/dirPagination.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="vendors/bootstrap/js/ui-bootstrap-tpls-2.3.1.js" type="text/javascript" xml:space="preserve"></script>
+
+  <!-- Own code-->
+  <!-- Model-->
+  <script src="js/model/Director.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="js/model/FilmType.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="js/model/Film.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="js/model/Review.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="js/model/User.js" type="text/javascript" xml:space="preserve"></script>
+  <!-- Controllers-->
+  <script src="js/app.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="js/controller/SessionController.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="js/controller/UserController.js" type="text/javascript" xml:space="preserve"></script>
+  <script src="js/controller/FilmController.js" type="text/javascript" xml:space="preserve"></script>
+</head>
+<body ng-show="sessionOpened" class="container" ng-controller="SessionController as sessionCtrl" ng-init="userAction=1;sessionCtrl.sessionControl()">
+  <div>
+    <img src="images/logo.jpg" id='logo' width="300" height="240" />
+  </div>
+  <h1>Welcome to the videoclub: Star Wars</h1>
+  <div ng-controller="FilmController as filmCtrl" ng-init="filmCtrl.loadInitData()" ng-show="$parent.userAction==1">
+    <div id="mainMenuFilms" ng-show="shomForm==0">
+      <h3>Click the option to run for films</h3><br/>
+      <input type="radio" name="filmOptions" id="filmEntry" ng-click="shomForm=1"/> Film entry
+      <br/>
+      <input type="radio" name="filmOptions" id="filmModify" ng-click="shomForm=2;filmCtrl.loadFilms()"/> Film modification
+      <br/>
+      <input type="radio" name="filmOptions" id="filmCancel" /> Film cancellation
+      <br/>
+    </div>
+    <div id="managementFilms">
+      <films-entry-form ng-show="shomForm==1"></films-entry-form>
+      <films-mod-form ng-show="shomForm==2"></films-mod-form>
+    </div>
+  </div>
+  <div ng-controller="UserController as userCtrl">
+    <div align="right">
+      <img src="{{user.getImage()}}" id='userImage' align="right" width="100" height="100" /></br></br>
+      <a align="right" href="#" ng-click="userOption=2">Change my data</a>
+    </div>
+    <user-data-management ng-show="userOption==2"></user-data-management>
+  </div>
+  <div id="foot">
+    <button class="btn btn-primary pull-left" onclick="location.reload()">Reload</button>
+    <button class="btn btn-primary pull-left" ng-click="sessionCtrl.logOut()">Log out</button>
+    <strong>Videoclub Star Wars</strong>
+  </div>
+</body>
+</html>
