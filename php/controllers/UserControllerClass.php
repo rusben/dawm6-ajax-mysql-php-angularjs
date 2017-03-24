@@ -68,6 +68,7 @@ class UserControllerClass implements ControllerInterface {
 		return $outPutData;
 	}
 
+
 	private function entryUser()
 	{
 		$userObj = json_decode(stripslashes($this->getJsonData()));
@@ -75,10 +76,9 @@ class UserControllerClass implements ControllerInterface {
 		$user = new User();
 		$user->setAll(0, $userObj->name, $userObj->surname1, $userObj->nick, $userObj->password, $userObj->address, $userObj->telephone, $userObj->mail, $userObj->birthDate, date("Y-m-d h:i:sa"), "0000-00-00", $userObj->active, $userObj->image);
 
-
 		$outPutData = array();
 		$outPutData[]= true;
-		$user->setId(userADO::create($user));
+		$user->setId(UserADO::create($user));
 
 		//the senetnce returns de id of the user inserted
 		$outPutData[]= array($user->getAll());
@@ -97,7 +97,7 @@ class UserControllerClass implements ControllerInterface {
 		{
 		    $user = new User();
 			$user->setAll($userObj->id, $userObj->name, $userObj->surname1, $userObj->nick, $userObj->password, $userObj->address, $userObj->telephone, $userObj->mail, $userObj->birthDate, $userObj->entryDate, $userObj->dropOutDate, $userObj->active, $userObj->image);
-		    userADO::update($user);
+		    UserADO::update($user);
 		}
 
 		return $outPutData;
@@ -119,7 +119,7 @@ class UserControllerClass implements ControllerInterface {
 		$user->setNick($userObj->nick);
 		$user->setPassword($userObj->password);
 
-		$userList = userADO::findByNickAndPass($user);
+		$userList = UserADO::findByNickAndPass($user);
 
 		if (count($userList)==0)
 		{

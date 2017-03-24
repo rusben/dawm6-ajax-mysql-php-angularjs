@@ -63,7 +63,7 @@
 				{
 					if (angular.isArray(outPutData[1]))
 					{
-						showErrors(outPutData[1]);
+						console.log(outPutData[1]);
 					} else {
 						alert("There has been an error in the server, try later");
 					}
