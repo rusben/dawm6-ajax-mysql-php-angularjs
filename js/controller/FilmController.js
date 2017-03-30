@@ -45,7 +45,6 @@
 			}
 
 			//imagesArrayToSend['images[]']
-
 			$http({
 				method: 'POST',
 				url: 'php/controllers/MainController.php?controllerType=2&action=10000&jsonData=""',

@@ -6,6 +6,7 @@
 		//scope variables
 		$scope.user = new User();
 		$scope.userAction=0;
+    $scope.sessionOpened=true;
 
 		this.sessionControl = function ()
 		{
@@ -27,7 +28,7 @@
 		this.logOut = function ()
 		{
 			//Local session destroy
-			
+
 		}
 	}]);
 })();
