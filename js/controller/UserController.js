@@ -3,8 +3,7 @@
 	angular.module('videoclubApp').controller("UserController", ['$http','$scope', '$window', '$cookies','accessService', 'userConnected',function ($http, $scope, $window, $cookies, accessService, userConnected){
 
 		//scope variables
-		if(userConnected.user != undefined)
-		{
+		if(userConnected.user != undefined) {
 			$scope.user = userConnected.user;
 		}
 		else {
@@ -34,8 +33,7 @@
 			$scope.birthDate.opened = true;
 		};
 
-		this.connection = function ()
-		{
+		this.connection = function () {
 			//copy
 			$scope.user = angular.copy($scope.user);
 
@@ -48,10 +46,8 @@
           //User correcte, mainWindow is opened
           window.open("mainWindow.html", "_self");
 				}
-				else
-				{
-					if(angular.isArray(outputData[1]))
-					{
+				else {
+					if(angular.isArray(outputData[1])) {
 						console.log(outputData);
 					}
 					else {alert("There has been an error in the server, try later");}
@@ -59,8 +55,7 @@
 			});
 		}
 
-    this.userManagement = function ()
-    {
+    this.userManagement = function () {
 
       var imageFile = $("#imageUser")[0].files[0];
 
@@ -87,8 +82,7 @@
       		var promise = accessService.getData("php/controllers/MainController.php", true, "POST", {controllerType: 0, action: 10010, jsonData: JSON.stringify($scope.user)});
 
       		promise.then(function (outPutData) {
-      			if (outPutData[0] === true)
-      			{
+      			if (outPutData[0] === true) {
       				$scope.userOption=0;
       				$scope.userManagement.$setPristine();
       				$scope.user.setId(outPutData[1][0].id);
@@ -98,11 +92,9 @@
       				sessionStorage.setItem("connectedUser", JSON.stringify($scope.user));
       				window.open("mainWindow.html", "_self");
 
-      			} else
-      			{
+      			} else {
 
-      				if (angular.isArray(outPutData[1]))
-      				{
+      				if (angular.isArray(outPutData[1])) {
       					showErrors(outPutData[1]);
       				} else {
       					alert("There has been an error in the server, try later");
@@ -110,18 +102,14 @@
       			}
       		});
 
-      	} else
-      	{
-
-      		if (angular.isArray(outPutData[1]))
-      		{
+      	} else {
+      		if (angular.isArray(outPutData[1])) {
       			showErrors(outPutData[1]);
       		} else {
       			alert("There has been an error in the server, try later");
       		}
       	}
       });
-
     }
 
 

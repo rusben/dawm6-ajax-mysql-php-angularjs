@@ -20,7 +20,7 @@
 
 					break;
 				default:
-					console.log("user action not correcte: "+$scope.userAction);
+					console.log("user action not correct: "+$scope.userAction);
 					break;
 			}
 		}
