@@ -44,18 +44,18 @@
   </div>
   <h1>Welcome to the videoclub: Star Wars</h1>
   <div ng-controller="FilmController as filmCtrl" ng-init="filmCtrl.loadInitData()" ng-show="$parent.userAction==1">
-    <div id="mainMenuFilms" ng-show="shomForm==0">
+    <div id="mainMenuFilms" ng-show="showForm==0">
       <h3>Click the option to run for films</h3><br/>
-      <input type="radio" name="filmOptions" id="filmEntry" ng-click="shomForm=1"/> Film entry
+      <input type="radio" name="filmOptions" id="filmEntry" ng-click="showForm=1"/> Film entry
       <br/>
-      <input type="radio" name="filmOptions" id="filmModify" ng-click="shomForm=2;filmCtrl.loadFilms()"/> Film modification
+      <input type="radio" name="filmOptions" id="filmModify" ng-click="showForm=2;filmCtrl.loadFilms()"/> Film modification
       <br/>
       <input type="radio" name="filmOptions" id="filmCancel" /> Film cancellation
       <br/>
     </div>
     <div id="managementFilms">
-      <films-entry-form ng-show="shomForm==1"></films-entry-form>
-      <films-mod-form ng-show="shomForm==2"></films-mod-form>
+      <films-entry-form ng-show="showForm==1"></films-entry-form>
+      <films-mod-form ng-show="showForm==2"></films-mod-form>
     </div>
   </div>
   <div ng-controller="UserController as userCtrl">

@@ -6,7 +6,7 @@
 	//Application module
 	angular.module('videoclubApp').controller("FilmController", ['$http','$scope', '$window', '$cookies','accessService','$filter', function ($http, $scope, $window, $cookies, accessService, $filter){
 		//scope variables
-		$scope.shomForm=0;
+		$scope.showForm=0;
 		$scope.filmTypesArray = new Array();
 		$scope.directorsArray = new Array();
 		$scope.filmsArray = new Array();
@@ -84,6 +84,38 @@
 			}).success(function (outPutData) {
 				if (outPutData[0] === true) {
 					//Files uploaded, next step insert films in database
+
+          for (var i = 0; i < outPutData[1].length; i++) {
+            $scope.filmsArray[i].setImage(outPutData[1][i]);
+          }
+
+          $scope.filmsArray = angular.copy($scope.filmsArray);
+
+          var promise = accessService.getData("php/controllers/MainController.php",
+          true, "POST", {controllerType: 1, action: 10010,
+            jsonData: JSON.stringify($scope.filmsArray)});
+
+          promise.then(function (outputData) {
+            // Film inserted correctly
+            if(outputData[0] === true) {
+              // Initialize the form
+              $scope.filmsArray = [];
+              // Initial state
+              $scope.showForm = 0;
+
+            }
+            else {
+              if(angular.isArray(outputData[1])) {
+                console.log(outputData);
+              }
+              else {
+                alert("There has been an error in the server, try later");
+              }
+            }
+          });
+
+
+
 
 
 				} else {
