@@ -43,8 +43,10 @@
 
 			promise.then(function (outputData) {
 				if(outputData[0] === true) {
-          //User correcte, mainWindow is opened
+          //User correct, mainWindow is opened.
+          sessionStorage.userConnected = JSON.stringify(outputData[1][0]);
           window.open("mainWindow.html", "_self");
+
 				}
 				else {
 					if(angular.isArray(outputData[1])) {

@@ -39,7 +39,7 @@
         }
         else {
           if(angular.isArray(outputData[1])) {
-            console.log(outputData);
+            alert(outPutData[1]);
           }
           else {
             alert("There has been an error in the server, try later");
@@ -99,14 +99,22 @@
             // Film inserted correctly
             if(outputData[0] === true) {
               // Initialize the form
+              $scope.entryFilmsForm.$setPristine();
+
               $scope.filmsArray = [];
-              // Initial state
+              var film = new Film();
+							film.construct(0,$scope.filmTypesArray[0].getId(),$scope.directorsArray[0].getId(),"",0,"",false,false, []);
+							$scope.filmsArray.push(film);
+
+              // Initialize state
               $scope.showForm = 0;
+
+              alert("Films inserted correctly");
 
             }
             else {
               if(angular.isArray(outputData[1])) {
-                console.log(outputData);
+                alert(outPutData[1]);
               }
               else {
                 alert("There has been an error in the server, try later");
@@ -114,13 +122,9 @@
             }
           });
 
-
-
-
-
 				} else {
 					if (angular.isArray(outPutData[1])) {
-						console.log(outPutData[1]);
+						alert(outPutData);
 					} else {
 						alert("There has been an error in the server, try later");
 					}
@@ -129,12 +133,64 @@
 		}
 
 		this.modFilms = function () {
+      $scope.filmsModArray = angular.copy($scope.filmsModArray);
 
+			var promise = accessService.getData("php/controllers/MainController.php", true, "POST", {controllerType:1, action:10030 ,jsonData: JSON.stringify($scope.filmsModArray)});
 
+			promise.then(function (outPutData) {
+				if(outPutData[0]=== true)
+				{
+          //Form Initialize
+					$scope.modFilmsForm.$setPristine();
+
+					$scope.shomForm=0;
+
+					alert("Films modfied correctly");
+				}
+				else
+				{
+					if(angular.isArray(outPutData[1]))
+					{
+            alert(outPutData[1]);
+					}
+					else {alert("There has been an error in the server, try later");}
+				}
+
+			});
 		}
 
 		this.loadFilms = function () {
+      // Load all the films
+      $scope.filmsModArray = [];
 
+      var promise = accessService.getData("php/controllers/MainController.php", true, "POST",
+      {controllerType:1, action:10020 ,jsonData: ""});
+
+      promise.then(function (outPutData) {
+        if(outPutData[0]=== true)
+        {
+          for (var i = 0; i < outPutData[1].length; i++)
+          {
+            var film = new Film();
+
+            film.construct(outPutData[1][i].id,outPutData[1][i].idFilmType,outPutData[1][i].idDirector,outPutData[1][i].name,outPutData[1][i].price,outPutData[1][i].image,outPutData[1][i].inSale == 1 ? true:false,outPutData[1][i].rented == 1 ? true:false, outPutData[1][i].reviews);
+
+            $scope.filmsModArray.push(film);
+          }
+
+          $scope.filteredData = $scope.filmsModArray;
+
+        }
+        else
+        {
+          if(angular.isArray(outPutData[1]))
+          {
+            alert(outPutData[1]);
+          }
+          else {alert("There has been an error in the server, try later");}
+        }
+
+      });
 		}
 	}]);
 

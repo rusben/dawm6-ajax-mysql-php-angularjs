@@ -41,7 +41,7 @@
   			.error(function(msg, code) {
   				deferred.reject(msg);
   				$log.error(msg, code);
-  				alert("There has been an error in the server, try later");
+  				alert("There has been an error in the server, try again later.");
   			});
 
   			return deferred.promise;

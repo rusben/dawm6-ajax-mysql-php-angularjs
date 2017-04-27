@@ -51,10 +51,7 @@ class UserControllerClass implements ControllerInterface {
 				$outPutData = $this->sessionControl();
 				break;
 			case 10040:
-				//Closing session
-				session_unset();
-				session_destroy();
-				$outPutData[0]=true;
+        $outPutData = $this->sessionLogout();
 				break;
 			default:
 				$errors = array();
@@ -85,6 +82,15 @@ class UserControllerClass implements ControllerInterface {
 
 		return $outPutData;
 	}
+
+  private function sessionLogout() {
+    $outPutData = array();
+    //Closing session
+    session_unset();
+    session_destroy();
+    $outPutData[0]=true;
+    return $outPutData;
+  }
 
 	private function modifyUser()
 	{
