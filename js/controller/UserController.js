@@ -3,12 +3,15 @@
 	angular.module('videoclubApp').controller("UserController", ['$http','$scope', '$window', '$cookies','accessService', 'userConnected',function ($http, $scope, $window, $cookies, accessService, userConnected){
 
 		//scope variables
-		if(userConnected.user != undefined) {
-			$scope.user = userConnected.user;
-		}
-		else {
-			$scope.user = new User();
-		}
+		$scope.user = new User();
+
+    if(sessionStorage.userConnected != undefined) {
+      var obj = JSON.parse(sessionStorage.userConnected);
+      $scope.user.construct(obj.id, obj.name, obj.surname1, obj.nick, obj.password,
+        obj.address, obj.telephone, obj.mail, new Date(obj.birthDate), obj.entryDate,
+        obj.dropOutDate, obj.active, obj.image);
+    }
+
 
 		$scope.userOption=0;
 
